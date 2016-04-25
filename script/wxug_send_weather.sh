@@ -41,10 +41,13 @@ do
 		continue
 	fi
 
-	# Store first read
+	# Store first read for Temperature and RH
 	# For second and third reads, if lower than existing, use new reading
-	if [[ -z $CELSIUS ]] || [[ $(echo "scale=3; $CELSIUS_SAMPLE <= $CELSIUS" | bc) -eq 1 ]]; then
+	if [[ -z $CELSIUS ]] || [[ $(echo "scale=3; $CELSIUS_SAMPLE < $CELSIUS" | bc) -eq 1 ]]; then
 		CELSIUS=$CELSIUS_SAMPLE
+	fi
+	
+	if [[ -z $RH ]] || [[ $(echo "scale=3; $RH_SAMPLE < $RH" | bc) -eq 1 ]]; then
 		RH=$RH_SAMPLE
 	fi
 done
@@ -62,7 +65,7 @@ FAHRENHEIT=$(echo "scale=2;((9/5) * $CELSIUS) + 32" | bc)
 DEWPTC=$(echo "243.04*(l($RH/100)+((17.625*$CELSIUS)/(243.04+$CELSIUS)))/(17.625-l($RH/100)-((17.625*$CELSIUS)/(243.04+$CELSIUS)))" | bc -l)
 DEWPTF=$(echo "scale=2; ($DEWPTC*1.8/1)+32" | bc)	# Divide by 1 to round to scale
 
-echo "On Deck..."
+echo "On Deck"
 echo "$CELSIUS  tempc"
 echo "$RH% humidity"
 echo "$FAHRENHEIT  tempf"

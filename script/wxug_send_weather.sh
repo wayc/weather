@@ -61,10 +61,11 @@ FAHRENHEIT=$(echo "scale=2;((9/5) * $CELSIUS) + 32" | bc)
 DEWPTC=$(echo "243.04*(l($RH/100)+((17.625*$CELSIUS)/(243.04+$CELSIUS)))/(17.625-l($RH/100)-((17.625*$CELSIUS)/(243.04+$CELSIUS)))" | bc -l)
 DEWPTF=$(echo "scale=2; ($DEWPTC*1.8/1)+32" | bc)	# Divide by 1 to round to scale
 
-echo "\nOn Deck"
+echo "On Deck"
 echo "$FAHRENHEIT  tempf"
 echo "$RH% humidity"
 echo "$DEWPTF  dew point"
+printf "\n"
 
 # Get recent nearby reading
 #EPOCH_NOW=$(date -d '5 minutes ago' +%s)
@@ -81,7 +82,8 @@ echo "$DEWPTF  dew point"
 #	fi
 #fi
 
-echo "\nSending..."
+echo "Sending..."
 REQUEST="http://weatherstation.wunderground.com/weatherstation/updateweatherstation.php?action=updateraw&PASSWORD=$WXUG_PASSWORD&ID=$WXUG_ID&dateutc=$WXUG_DATEUTC&tempf=$FAHRENHEIT&humidity=$RH&dewptf=$DEWPTF"
 echo $REQUEST
 curl $REQUEST
+printf "\n"

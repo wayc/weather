@@ -48,6 +48,7 @@ do
 		RH=$RH_SAMPLE
 	fi
 done
+printf "\n"
 
 # Exit if missing a reading
 if [[ -z $CELSIUS ]]; then

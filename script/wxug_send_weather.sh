@@ -33,7 +33,6 @@ do
 	TEMP_RH_ARR=($TEMP_RH_SAMPLE)
 
 	CELSIUS_SAMPLE=${TEMP_RH_ARR[0]}
-	
 	RH_SAMPLE=${TEMP_RH_ARR[1]}
 	
 	# Validate RH
